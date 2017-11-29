@@ -1,4 +1,4 @@
-var weatherurl = "https://s3-ap-southeast-1.amazonaws.com/acbw/tokyo29november.json";
+var weatherurl = "https://s3-ap-southeast-1.amazonaws.com/acbw/tokyo_weather.json";
 var chartConfig = function(weatherData) {
   var hourLabels = weatherData.hourly.data.map(function(hour) {
     var utcSeconds = hour.time;
@@ -23,8 +23,8 @@ var chartConfig = function(weatherData) {
         {
           label: "Linear interpolation",
           data: hourTemperatures,
-          borderColor: "#79D1CF",
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderColor: "#566197",
+          backgroundColor: '#566197',
           fill: true,
           cubicInterpolationMode: 'monotone',
         }
@@ -43,6 +43,11 @@ var chartConfig = function(weatherData) {
             max: (maxTemp + 5),
           }
         }],
+        xAxes: [{
+          ticks: {
+            fontColor: "#7780ad",
+          }
+        }]
       },
       animation: {
         onComplete: function() {
@@ -54,7 +59,7 @@ var chartConfig = function(weatherData) {
           this.data.datasets.map(function(dataset) {
             for (var i = 0; i < dataset.data.length; i++) {
               var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-              ctx.fillStyle = 'red';
+              ctx.fillStyle = '#7780ad';
               var label = dataset.data[i];
               ctx.fillText(label, model.x - 8, model.y - 8);
             }
@@ -68,5 +73,7 @@ var chartConfig = function(weatherData) {
 var ctx = document.getElementById("myChart1").getContext("2d");
 // var chart = new Chart(ctx, config);
 var chart = axios.get(weatherurl).then(function(response) {
-  return new Chart(ctx, chartConfig(response.data));
+  var chart = new Chart(ctx, chartConfig(response.data));
+  console.log(chart.chart.options.scales.xAxes);
+  return chart;
 });

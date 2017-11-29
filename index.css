@@ -54,5 +54,12 @@ table {
 .chart1-wrap {
   width: 3000px;
   height: 100%;
-  background-color: white;
+  background-color: #30385d;
+}
+
+
+.bananas {
+  background-color: #30385d;
+  color: #566197;
+  padding: 32px;
 }
