@@ -11,7 +11,7 @@ var chartConfig = function(weatherData) {
     }
   });
   var hourTemperatures = weatherData.hourly.data.map(function(hour) {
-    return Math.round(hour.temperature)
+    return Math.round(hour.temperature);
   });
   var maxTemp = Math.max.apply(null, hourTemperatures);
   var minTemp = Math.min.apply(null, hourTemperatures);
@@ -45,6 +45,7 @@ var chartConfig = function(weatherData) {
         }],
         xAxes: [{
           ticks: {
+            padding: 40,
             fontColor: "#7780ad",
           }
         }]
@@ -70,10 +71,21 @@ var chartConfig = function(weatherData) {
   };
   return config;
 }
-var ctx = document.getElementById("myChart1").getContext("2d");
-// var chart = new Chart(ctx, config);
+
+var hourlyIcons = function(weatherData) {
+  var chartWrap = document.getElementById('chart1-wrap');
+  weatherData.hourly.data.map(function(hour, index) {
+    var image = new Image();
+    image.src = 'images/'+hour.icon+'.svg';
+    image.className = 'chart1-icon';
+    image.style.left = String(61.7*index)+"px";
+    chartWrap.appendChild(image);
+  });
+}
+
+var ctx = document.getElementById('myChart1').getContext("2d");
 var chart = axios.get(weatherurl).then(function(response) {
   var chart = new Chart(ctx, chartConfig(response.data));
-  console.log(chart.chart.options.scales.xAxes);
+  hourlyIcons(response.data);
   return chart;
 });

@@ -49,17 +49,17 @@ table {
 
 .chart-wrapper {
   overflow-x: scroll;
-  height: 200px;
+  height: 316px;
+  background-color: #30385d;
 }
 .chart1-wrap {
+  position: relative;
   width: 3000px;
-  height: 100%;
-  background-color: #30385d;
+  height: calc(100% - 16px);
 }
-
-
-.bananas {
-  background-color: #30385d;
-  color: #566197;
-  padding: 32px;
+.chart1-icon {
+  position: absolute;
+  top: 240px;
+  width: 40px;
+  height: 40px;
 }
